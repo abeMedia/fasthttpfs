@@ -150,7 +150,7 @@ func serveContent(ctx *fasthttp.RequestCtx, name string, modtime time.Time, size
 	// If Content-Type isn't set, use the file's extension to find it, but
 	// if the Content-Type is unset explicitly, do not sniff the type.
 	ctype := b2s(ctx.Response.Header.ContentType())
-	if ctype == "" {
+	if ctype == "" || ctype == "text/plain; charset=utf-8" {
 		ctype = mime.TypeByExtension(filepath.Ext(name))
 		if ctype == "" {
 			// read a chunk to decide between utf-8 text and binary
